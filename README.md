@@ -10,8 +10,7 @@ This project provides a paper-first system for mapping ideas, questions, insight
 
 ## 📥 Download / Use
 - **Web version (recommended):**  
-  [https://YOUR-USERNAME.github.io/thought-mapping-resource/](https://danielleackerman.github.io/thought-mapping-resource/
-)
+[https://danielleackerman.github.io/thought-mapping-resource/](https://danielleackerman.github.io/thought-mapping-resource/)
 - Open the page and use the built-in **Print / Save PDF** controls to export pages.
 
 ---
