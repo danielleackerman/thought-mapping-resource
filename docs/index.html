@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Complete Thought Map Templates (Print)</title>
+  <style>
+    /* =========================
+       Print-first, workbook style
+       (delicate lines like your screenshots)
+       ========================= */
+
+    :root{
+      /* Stroke weights (keep delicate) */
+      --stroke-strong: 0.9pt;     /* headers + key boxes */
+      --stroke: 0.7pt;            /* most borders */
+      --stroke-light: 0.5pt;      /* ruled lines */
+
+      /* Colors */
+      --ink: #111;
+      --ink-2: #333;
+      --muted: #666;
+      --line: #d6d6d6;
+      --box: #9a9a9a;
+      --rule: #1a1a1a;
+      --paper: #fff;
+      --ui-bg: #f3f5f7;
+      --accent: #2f6fed;
+      --warning-bg: #fff6d6;
+      --warning-border: #f0c44d;
+      --speed-margin: #e25b52;
+    }
+
+    @page { size: Letter; margin: 0; }
+
+    html, body{
+      margin:0;
+      padding:0;
+      background: var(--ui-bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: var(--ink);
+    }
+
+    /* On-screen wrapper (not printed) */
+    .shell{
+      max-width: 980px;
+      margin: 24px auto;
+      padding: 0 16px 40px;
+    }
+
+    /* The printable page */
+    .page{
+      width: 8.5in;
+      height: 11in;
+      background: var(--paper);
+      margin: 18px auto;
+      box-shadow: 0 10px 26px rgba(0,0,0,.12);
+      box-sizing: border-box;
+      padding: 0.55in;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Print: remove shadows and UI */
+    @media print{
+      body{ background: #fff; }
+      .shell{ margin:0; padding:0; }
+      .page{ margin:0; box-shadow:none; page-break-after: always; }
+      .no-print{ display:none !important; }
+    }
+
+    /* =========================
+       Cover page (like screenshot)
+       ========================= */
+
+    .cover-title{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      font-size: 34px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin: 0 0 8px 0;
+      color: #2b3340;
+    }
+
+    .cover-sub{
+      margin: 0 0 18px 0;
+      color: #4a5568;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .cover-buttons{
+      display:flex;
+      gap: 12px;
+      margin: 14px 0 18px;
+      flex-wrap: wrap;
+    }
+
+    .btn{
+      border: 1px solid rgba(47,111,237,.25);
+      background: rgba(47,111,237,.12);
+      color: #1f4fb8;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      user-select:none;
+    }
+
+    .cover-h2{
+      font-size: 22px;
+      margin: 10px 0 12px;
+      font-weight: 800;
+      color: #111;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .card{
+      border-radius: 10px;
+      background: #f3f6f8;
+      border-left: 4px solid rgba(47,111,237,.65);
+      padding: 12px;
+      min-height: 92px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card .btn{
+      margin-top: auto;
+      align-self: flex-start;
+    }
+
+    .card h3{ margin:0 0 6px 0; font-size: 14px; font-weight: 800; color: #2b3340; }
+    .card p{ margin:0; font-size: 12px; color: #566274; line-height: 1.35; }
+
+    .tipbox{
+      margin-top: 18px;
+      background: var(--warning-bg);
+      border-left: 4px solid var(--warning-border);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+
+    .tipbox h3{ margin:0 0 8px 0; font-size: 15px; font-weight: 800; }
+    .tipbox ul{ margin: 0; padding-left: 18px; }
+    .tipbox li{ font-size: 12px; color: #4a5568; margin: 6px 0; }
+
+    /* Make the cover grid work on paper */
+    .cover-wrap{ padding-top: 0.1in; }
+
+    /* =========================
+       Common template typography
+       ========================= */
+
+    /* =========================
+       Common template typography
+       ========================= */
+
+    /* Clean, single-rule header like your second screenshot */
+    .header{
+      padding-bottom: 6px;
+      margin-bottom: 14px;
+    }
+
+    .header h2{
+      margin: 0;
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+
+    .header-rule{
+      display:none; /* removed: no extra line under header */
+    }
+
+    /* Subject line (primary) */
+    .header-info{
+      display:flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 14px;
+      margin: 0 0 10px 0;
+    }
+
+    .subject-wrap{
+      display:flex;
+      align-items: flex-end;
+      gap: 10px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .subject-wrap .label{
+      color: var(--muted);
+      font-weight: 500;           /* lighter, not bold */
+      font-size: 15px;            /* smaller than page title */
+      letter-spacing: 0.01em;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .subject-wrap .fill{
+      flex: 1;
+      border-bottom: 0.7pt solid #7a7a7a; /* slightly darker, still delicate */
+      transform: translateY(-1px);
+      min-width: 0;
+    }
+
+    .meta{
+      display:flex;
+      gap: 16px;
+      align-items: flex-end;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .meta .m{ display:flex; gap: 8px; align-items: flex-end; }
+    .meta .m .k{ color: var(--muted); font-weight: 600; }
+    .meta .m .line{ display:inline-block; width: 1.6in; border-bottom: 0.8pt solid #9b9b9b; transform: translateY(-2px); }
+
+    .field-label{
+      font-weight: 800;
+      font-size: 11px;
+      color: var(--ink-2);
+      margin: 6px 0 4px;
+      letter-spacing: 0.01em;
+    }
+
+    .field-box{
+      border: var(--stroke) solid var(--box);
+      padding: 8px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .instructions{
+      font-size: 9.5px;
+      color: var(--muted);
+      font-style: italic;
+      margin-top: 6px;
+      line-height: 1.35;
+    }
+
+    /* SMOC / GSMOC mapping area */
+    .map-grid{
+      border: var(--stroke) solid var(--line);
+      min-height: 7.35in;
+      border-radius: 3px;
+    }
+
+    /* Ruled lines */
+    .lined-section{ position: relative; }
+    .line{
+      border-bottom: var(--stroke-light) solid var(--line);
+      height: 0.205in;
+      margin: 0;
+    }
+
+    /* Speed list (margin + lines) */
+    .speed-line{
+      display:flex;
+      border-bottom: var(--stroke-light) solid var(--line);
+      height: 0.185in;
+    }
+    .speed-margin{
+      width: 0.3in;
+      border-right: var(--stroke-light) solid var(--speed-margin);
+      flex-shrink: 0;
+      opacity: 0.9;
+    }
+    .speed-content{ flex-grow: 1; }
+
+    /* Tables */
+    table{
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10.5px;
+    }
+
+    .ruled-table th{
+      border: var(--stroke) solid var(--box);
+      background:#f5f5f5;
+      padding: 8px 8px;
+      font-weight:800;
+    }
+
+    .ruled-table td{
+      border-left: none;
+      border-right: none;
+      border-top: none;
+      border-bottom: var(--stroke-light) solid var(--line);
+      padding: 11px 6px;
+    }
+    th, td{
+      border: var(--stroke) solid var(--box);
+      padding: 9px 8px; /* more vertical room for writing */
+      text-align: left;
+      vertical-align: middle;
+    }
+    th{
+      background: #f5f5f5;
+      font-weight: 800;
+    }
+
+    /* Utility */
+    .spacer{ height: 6px; }
+
+    /* Keep the cover nice on Letter (avoid awkward breaks) */
+    .no-break{ break-inside: avoid; page-break-inside: avoid; }
+
+  </style>
+</head>
+<body>
+  <!-- Minimal screen-only header (kept intentionally quiet) -->
+  <div class="shell no-print">
+    <div style="max-width: 980px; margin: 0 auto 12px; color:#374151;">
+      <div style="display:flex; align-items:center; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
+        <div>
+          <div style="font-weight:800; font-size: 16px;">Print-ready workbook templates</div>
+          <div style="font-size: 12px; color:#6b7280; margin-top: 2px;">Use your browser print dialog → “Save as PDF” to export.</div>
+        </div>
+        <button onclick="printAllPages()" style="border:0; background:#111827; color:#fff; padding:10px 14px; border-radius:10px; font-weight:700; cursor:pointer;">Print / Save PDF (All Pages)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- (Cover-page UI removed to keep the document breathing) --><!-- =========================
+       COVER PAGE
+       ========================= -->
+  <div class="page" id="cover">
+    <div class="cover-wrap">
+      <div class="cover-title">
+        <span style="font-size: 30px;">📓</span>
+        <span>Complete Thought Map Templates</span>
+      </div>
+      <p class="cover-sub">
+        Printable templates for the “How to Make a Complete Map of Every Thought You Think” system. Print as many copies as needed.
+      </p><div class="cover-h2">Templates Included:</div>
+      <div class="grid no-break">
+        <div class="card"><h3>P&amp;P Page</h3><p>Purpose &amp; Principles — Define subject boundaries</p>
+          <button class="btn no-print" onclick="printOnly(['pp'])">Print page</button>
+        </div>
+        <div class="card"><h3>SMOC</h3><p>Subject Map of Contents — Visual mapping space</p>
+          <button class="btn no-print" onclick="printOnly(['smoc'])">Print page</button>
+        </div>
+        <div class="card"><h3>GSMOC</h3><p>Grand Subject Map — Map of all subjects</p>
+          <button class="btn no-print" onclick="printOnly(['gsmoc'])">Print page</button>
+        </div>
+        <div class="card"><h3>Speed Lists</h3><p>Quick thought capture with margin for glyphs</p>
+          <button class="btn no-print" onclick="printOnly(['speed','panspeed'])">Print page</button>
+        </div>
+
+        <div class="card"><h3>POI Page</h3><p>Point of Interest — Deep dissertations</p>
+          <button class="btn no-print" onclick="printOnly(['poi'])">Print page</button>
+        </div>
+        <div class="card"><h3>REF Page</h3><p>Reference notes from external sources</p>
+          <button class="btn no-print" onclick="printOnly(['ref'])">Print page</button>
+        </div>
+        <div class="card"><h3>RS Page</h3><p>Research pages for active inquiry</p>
+          <button class="btn no-print" onclick="printOnly(['rs'])">Print page</button>
+        </div>
+        <div class="card"><h3>Index Page</h3><p>Alphabetical index template</p>
+          <button class="btn no-print" onclick="printOnly(['index'])">Print page</button>
+        </div>
+      </div>
+
+      <div style="margin-top: 12px; max-width: 240px;" class="card no-break">
+        <h3>GSR</h3>
+        <p>Grand Subject Registry</p>
+        <button class="btn no-print" onclick="printOnly(['gsr'])">Print page</button>
+      </div>
+
+      <div class="tipbox no-break">
+        <h3>💡 Usage Tips:</h3>
+        <ul>
+          <li>Print multiple copies of each template</li>
+          <li>Use 3-hole punch paper or punch after printing</li>
+          <li>The system recommends 40+ lines per page for information density</li>
+          <li>Always use with a 4-color pen (Red, Green, Blue, Black)</li>
+          <li>Keep templates in binders with tab dividers</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================
+       P&P
+       ========================= -->
+  <div class="page" id="pp">
+    <div class="header">
+      <div class="header-info">
+        <div class="subject-wrap"><span class="label">Subject:</span><span class="fill"></span></div>
+        <div class="meta"><div class="m"><span class="k">Date:</span><span class="line"></span></div></div>
+      </div>
+      <h2>P&amp;P — Purpose &amp; Principles</h2>
+    </div>
+
+    <div class="field-label">PURPOSE (What is this subject? What does it contain?):</div>
+    <div class="field-box" style="min-height: 1.5in;"></div>
+
+    <div class="field-label">BOUNDARIES — What IS Included:</div>
+    <div class="field-box" style="min-height: 1.2in;"></div>
+
+    <div class="field-label">BOUNDARIES — What is NOT Included (Exclusions):</div>
+    <div class="field-box" style="min-height: 1.2in;"></div>
+
+    <div class="field-label">WORMHOLES (Connections to Other Subjects):</div>
+    <div class="field-box" style="min-height: 1.5in;"></div>
+
+    <div class="field-label">PRINCIPLES / OPERATING RULES:</div>
+    <div class="field-box" style="min-height: 1.5in;"></div>
+
+    <div class="instructions">
+      This page defines your subject’s boundaries. Be specific about what belongs and what doesn’t. Update as the subject evolves.
+    </div>
+  </div>
+
+  <!-- =========================
+       SMOC
+       ========================= -->
+  <div class="page" id="smoc">
+    <div class="header">
+      <div class="header-info">
+        <div class="subject-wrap"><span class="label">Subject:</span><span class="fill"></span></div>
+        <div class="meta">
+          <div class="m"><span class="k">Version:</span><span class="line" style="width: 0.9in;"></span></div>
+          <div class="m"><span class="k">Date:</span><span class="line"></span></div>
+        </div>
+      </div>
+      <h2>SMOC — Subject Map of Contents</h2>
+</div>
+
+    <div class="map-grid"></div>
+
+    <div class="instructions">
+      Use this space to create a NON-LINEAR visual map. Place related concepts near each other. Use different colors and sizes for importance.
+      Add “Magnet Words” as structural anchors. Link Speed IDs (S#), POI IDs (P#), REF IDs (R#) to relevant concepts.
+    </div>
+  </div>
+
+  <!-- =========================
+       GSMOC
+       ========================= -->
+  <div class="page" id="gsmoc">
+    <div class="header">
+      <div class="header-info">
+        <div class="subject-wrap"><span class="label">Period:</span><span class="fill"></span></div>
+        <div class="meta">
+          <div class="m"><span class="k">Version:</span><span class="line" style="width: 0.9in;"></span></div>
+          <div class="m"><span class="k">Date:</span><span class="line"></span></div>
+        </div>
+      </div>
+      <h2>GSMOC — Grand Subject Map of Contents</h2>
+</div>
+
+    <div class="map-grid"></div>
+
+    <div class="instructions">
+      Map ALL your subjects here. Arrange by actual relationships in your life, not alphabetically. This is your “Mental Terrain” — a mirror of your entire mind.
+      Update every 3–5 months. Each subject should appear with connections to related subjects.
+    </div>
+  </div>
+
+  <!-- =========================
+       Subject Speed List
+       ========================= -->
+  <div class="page" id="speed">
+    <div class="header">
+      <div class="header-info">
+        <div class="subject-wrap"><span class="label">Subject:</span><span class="fill"></span></div>
+        <div class="meta">
+          <div class="m"><span class="k">Page:</span><span class="line" style="width: 0.9in;"></span></div>
+          <div class="m"><span class="k">Date:</span><span class="line"></span></div>
+        </div>
+      </div>
+      <h2>Subject Speed List</h2>
+</div>
+
+    <div style="margin-top: 10px;">
+      <!-- 46 lines (matches your HTML intent) -->
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+    </div>
+
+    <div class="instructions">
+      Capture thoughts tersely (1–50 words). Use margin for Psi glyphs (Problem, Goal, Question, Starting Point). Check off when mapped to SMOC.
+    </div>
+  </div>
+
+  <!-- =========================
+       Pan-Subject Speed List
+       ========================= -->
+  <div class="page" id="panspeed">
+    <div class="header">
+      <div class="header-info">
+        <div class="subject-wrap"><span class="label">Started:</span><span class="fill"></span></div>
+        <div class="meta">
+          <div class="m"><span class="k">Page:</span><span class="line" style="width: 0.9in;"></span></div>
+          <div class="m"><span class="k">Transcribed:</span><span class="line" style="width: 1.3in;"></span></div>
+        </div>
+      </div>
+      <h2>Pan-Subject Speed List</h2>
+</div>
+
+    <div style="margin-top: 10px;">
+      <!-- same line count for consistency -->
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+      <div class="speed-line"><div class="speed-margin"></div><div class="speed-content"></div></div>
+    </div>
+
+    <div class="instructions">
+      Use when away from subject binders. Transcribe to specific subject Speed Lists ASAP. This is your portable capture tool.
+    </div>
+  </div>
+
+  <!-- =========================
+       POI
+       ========================= -->
+  <div class="page" id="poi">
+    <div class="header">
+      <div class="header-info">
+        <div class="subject-wrap"><span class="label">Subject:</span><span class="fill"></span></div>
+        <div class="meta">
+          <div class="m"><span class="k">POI #:</span><span class="line" style="width: 0.95in;"></span></div>
+          <div class="m"><span class="k">Date:</span><span class="line"></span></div>
+        </div>
+      </div>
+      <h2>POI — Point of Interest</h2>
+</div>
+
+    <div class="field-label">TOPIC / TITLE:</div>
+    <div class="field-box" style="min-height: 0.42in;"></div>
+
+    <div class="field-label">LINKED TO (SMOC references, other POIs, etc.):</div>
+    <div class="field-box" style="min-height: 0.34in;"></div>
+
+    <div class="lined-section">
+      <!-- 30 lines -->
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+    </div>
+
+    <div class="instructions">
+      Deep dissertation on a specific limited topic. Can span multiple pages. Always link back to SMOC.
+    </div>
+  </div>
+
+  <!-- =========================
+       REF
+       ========================= -->
+  <div class="page" id="ref">
+    <div class="header">
+      <div class="header-info">
+        <div class="subject-wrap"><span class="label">Subject:</span><span class="fill"></span></div>
+        <div class="meta">
+          <div class="m"><span class="k">REF #:</span><span class="line" style="width: 0.95in;"></span></div>
+          <div class="m"><span class="k">Date:</span><span class="line"></span></div>
+        </div>
+      </div>
+      <h2>REF — Reference</h2>
+</div>
+
+    <div class="field-label">SOURCE:</div>
+    <div class="field-box" style="min-height: 0.42in;"></div>
+
+    <div class="field-label">AUTHOR / CREATOR:</div>
+    <div class="field-box" style="min-height: 0.34in;"></div>
+
+    <div class="field-label">TYPE: ☐ Book  ☐ Article  ☐ Web  ☐ Person  ☐ Video  ☐ Other: __________</div>
+
+    <div class="field-label" style="margin-top: 10px;">NOTES / ANNOTATIONS:</div>
+    <div class="lined-section">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+    </div>
+
+    <div class="instructions">
+      For external sources you can’t write in. Link to SMOC. Use icons (Kanji for book/person recommended).
+    </div>
+  </div>
+
+  <!-- =========================
+       RS
+       ========================= -->
+  <div class="page" id="rs">
+    <div class="header">
+      <div class="header-info">
+        <div class="subject-wrap"><span class="label">Subject:</span><span class="fill"></span></div>
+        <div class="meta">
+          <div class="m"><span class="k">RS #:</span><span class="line" style="width: 0.95in;"></span></div>
+          <div class="m"><span class="k">Date:</span><span class="line"></span></div>
+        </div>
+      </div>
+      <h2>RS — Research</h2>
+</div>
+
+    <div class="field-label">RESEARCH QUESTION / GOAL:</div>
+    <div class="field-box" style="min-height: 0.55in;"></div>
+
+    <div class="field-label">SOURCES CONSULTED:</div>
+    <div class="field-box" style="min-height: 0.44in;"></div>
+
+    <div class="field-label">FINDINGS / NOTES:</div>
+    <div class="lined-section">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+    </div>
+
+    <div class="field-label">CONCLUSION / NEXT STEPS:</div>
+    <div class="field-box" style="min-height: 0.55in;"></div>
+
+    <div class="instructions">
+      Active inquiry to fill gaps in your map. Document the research process and findings. Link to SMOC.
+    </div>
+  </div>
+
+  <!-- =========================
+       INDEX
+       ========================= -->
+  <div class="page" id="index">
+    <div class="header">
+      <div class="header-info">
+        <div class="subject-wrap"><span class="label">Subject:</span><span class="fill"></span></div>
+        <div class="meta">
+          <div class="m"><span class="k">Page:</span><span class="line" style="width: 0.9in;"></span></div>
+          <div class="m"><span class="k">of:</span><span class="line" style="width: 0.9in;"></span></div>
+          <div class="m"><span class="k">Updated:</span><span class="line"></span></div>
+        </div>
+      </div>
+      <h2>INDEX</h2>
+</div>
+
+    <table class="ruled-table">
+      <thead>
+        <tr>
+          <th style="width:30%">TERM / KEYWORD</th>
+          <th style="width:70%">LOCATION (Page #, POI #, Speed #, etc.)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr><td colspan="2"></td></tr>
+      </tbody>
+    </table>
+
+    <div class="instructions">
+      Alphabetical index of key terms and concepts. Create using “Late Binding” — only when actually needed.
+    </div>
+  </div>
+
+  <!-- =========================
+       GSR
+       ========================= -->
+  <div class="page" id="gsr">
+    <div class="header">
+      <div class="header-info">
+        <div class="subject-wrap"><span class="label">Updated:</span><span class="fill"></span></div>
+        <div class="meta">
+          <div class="m"><span class="k">Page:</span><span class="line" style="width: 0.9in;"></span></div>
+          <div class="m"><span class="k">of:</span><span class="line" style="width: 0.9in;"></span></div>
+        </div>
+      </div>
+      <h2>GSR — Grand Subject Registry</h2>
+</div>
+
+    <table class="ruled-table">
+      <thead>
+        <tr>
+          <th style="width:25%">SUBJECT NAME</th>
+          <th style="width:15%">STATUS</th>
+          <th style="width:15%">STARTED</th>
+          <th style="width:15%">LAST UPDATE</th>
+          <th style="width:30%">FLAGS / NOTES</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="5"></td></tr>
+        <tr><td colspan="5"></td></tr>
+        <tr><td colspan="5"></td></tr>
+        <tr><td colspan="5"></td></tr>
+        <tr><td colspan="5"></td></tr>
+        <tr><td colspan="5"></td></tr>
+        <tr><td colspan="5"></td></tr>
+        <tr><td colspan="5"></td></tr>
+        <tr><td colspan="5"></td></tr>
+        <tr><td colspan="5"></td></tr>
+        <tr><td colspan="5"></td></tr>
+        <tr><td colspan="5"></td></tr>
+        <tr><td colspan="5"></td></tr>
+        <tr><td colspan="5"></td></tr>
+        <tr><td colspan="5"></td></tr>
+        <tr><td colspan="5"></td></tr>
+        <tr><td colspan="5"></td></tr>
+        <tr><td colspan="5"></td></tr>
+        <tr><td colspan="5"></td></tr>
+        <tr><td colspan="5"></td></tr>
+        <tr><td colspan="5"></td></tr>
+        <tr><td colspan="5"></td></tr>
+        <tr><td colspan="5"></td></tr>
+        <tr><td colspan="5"></td></tr>
+        <tr><td colspan="5"></td></tr>
+      </tbody>
+    </table>
+
+    <div class="instructions">
+      Complete list of ALL subjects (active and archived). Status examples: Active, Archived, Merged, Split. Goes right after GSMOC.
+    </div>
+  </div>
+
+  
+  <script>
+    // Print helpers for local HTML (file://) usage
+    (function(){
+      let lastDisplay = null;
+
+      function getPages(){
+        return Array.from(document.querySelectorAll('.page'));
+      }
+
+      function snapshotDisplay(){
+        const pages = getPages();
+        const snap = new Map();
+        pages.forEach(p => snap.set(p, p.style.display));
+        return snap;
+      }
+
+      function restoreDisplay(snap){
+        if(!snap) return;
+        getPages().forEach(p => {
+          const v = snap.get(p);
+          p.style.display = (v === undefined ? '' : v);
+        });
+      }
+
+      function showOnly(ids){
+        const pages = getPages();
+        const set = new Set(ids);
+        pages.forEach(p => {
+          p.style.display = set.has(p.id) ? 'block' : 'none';
+        });
+      }
+
+      window.printAllPages = function(){
+        lastDisplay = snapshotDisplay();
+        // show everything
+        getPages().forEach(p => p.style.display = 'block');
+        window.print();
+      };
+
+      window.printOnly = function(ids){
+        lastDisplay = snapshotDisplay();
+        showOnly(ids);
+        window.print();
+      };
+
+      // After print, restore what user was viewing
+      window.addEventListener('afterprint', function(){
+        restoreDisplay(lastDisplay);
+        lastDisplay = null;
+      });
+
+      // Fallback for browsers that don't fire afterprint reliably
+      window.addEventListener('focus', function(){
+        if(lastDisplay){
+          setTimeout(function(){
+            restoreDisplay(lastDisplay);
+            lastDisplay = null;
+          }, 200);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
